@@ -13,7 +13,7 @@ class BasicLexer(Lexer):
     ELSE = r'SEDANGKAN'
     FOR = r'ULANG'
     FUN = r'FUNG'
-    TO = r'kE'
+    TO = r'KE'
     PRINT = r'CETAK'
     ARROW = r'->'
     NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
