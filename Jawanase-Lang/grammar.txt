@@ -1,0 +1,53 @@
+statement		: KEYWORD:balik expr?
+						: KEYWORD:lanjutke
+						: KEYWORD:ngaso
+						: expr
+
+expr        : KEYWORD:var identifier EQ expr
+            : comp-expr ((KEYWORD:lan|KEYWORD:utawa) comp-expr)*
+
+comp-expr   : ora comp-expr
+            : arith-expr ((EE|LT|GT|LTE|GTE) arith-expr)*
+
+arith-expr  :	term ((PLUS|MINUS) term)*
+
+term        : factor ((MUL|DIV) factor)*
+
+factor      : (PLUS|MINUS) factor
+            : power
+
+power       : call (POW factor)*
+
+atom        : INT|FLOAT|STRING|IDENTIFIER
+            : LPAREN expr RPAREN
+            : list-expr
+            : if-expr
+            : for-expr
+            : while-expr
+            : func-def
+
+if-expr     : KEYWORD:yen expr KEYWORD:banjur
+              (statement if-expr-b|if-expr-c?)
+            | (NEWLINE statements KEYWORD:rampung|if-expr-b|if-expr-c)
+
+if-expr-b   : KEYWORD:liyen expr KEYWORD:banjur
+              (statement if-expr-b|if-expr-c?)
+            | (NEWLINE statements KEYWORD:rampung|if-expr-b|if-expr-c)
+
+if-expr-c   : KEYWORD:liya
+              statement
+            | (NEWLINE statements KEYWORD:rampung)
+
+for-expr    : KEYWORD:kanggo identifier EQ expr KEYWORD:nek expr 
+              (KEYWORD:tahap expr)? KEYWORD:banjur
+              statement
+            | (NEWLINE statements KEYWORD:rampung)
+
+while-expr  : KEYWORD:nalika expr KEYWORD:banjur
+              statement
+            | (NEWLINE statements KEYWORD:rampung)
+
+func-def    : KEYWORD:FUN IDENTIFIER?
+              LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
+              (ARROW expr)
+            | (NEWLINE statements KEYWORD:rampung)
