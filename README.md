@@ -1,35 +1,4 @@
-  
-from sly import Lexer
-
-class BasicLexer(Lexer):
-    tokens = { NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, FUN, TO, ARROW, EQEQ, PRINT }
-    ignore = '\t '
-
-    literals = { '=', '+', '-', '/', '*', '(', ')', ',', ';' }
-
-    # Define tokens
-    IF = r'JIKA'
-    THEN = r'LALU '
-    ELSE = r'SEDANGKAN'
-    FOR = r'ULANG'
-    FUN = r'FUNG'
-    TO = r'KE'
-    PRINT = r'CETAK'
-    ARROW = r'->'
-    NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
-    STRING = r'\".*?\"'
-
-    EQEQ = r'=='
-
-    @_(r'\d+')
-    def NUMBER(self, t):
-        t.value = int(t.value)
-        return t
-
-    @_(r'#.*')
-    def COMMENT(self, t):
-        pass
-
-    @_(r'\n+')
-    def newline(self,t ):
-        self.lineno = t.value.count('\n')
+Kelompok 7
+Nama Anggota : Faisal Muhammad Audito Andrian
+               Naufal Afif Sadewa
+               Toibib Nugroho
